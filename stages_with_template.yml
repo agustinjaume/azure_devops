@@ -1,0 +1,51 @@
+parameters:
+- name: entorno
+  displayName: "Seleccione un entorno"
+  type: string
+  default: dev
+  values:
+  - dev
+  - pre
+  - q-a
+  - test
+  - pro
+
+variables:
+  MyVariable: 'This is a test'
+
+
+stages:
+- stage: "Primer_Stage"
+  pool: Hosted VS2017
+  jobs:
+
+  - job: "PrintSYSTEM_ACCESSTOKEN"
+    steps:
+    - bash: echo "This script could use $(System.AccessToken)"
+      
+    - script: echo This happens before code 
+      displayName: 'Base: Pre-build'
+
+    - script: echo Building
+      displayName: 'Base: Build'
+
+    - script: echo This happens after code
+      displayName: 'Base: Signing'
+
+- stage: "Segundo_stage"
+  pool: Hosted VS2017
+  jobs:
+  - job: secure_buildjob
+    steps:
+    - template: TemplateSegundoSteps.yml
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+
+- stage: "Resumen"
+  pool: Hosted VS2017
+  jobs:
+  - job: "Resumen"
+    steps:
+    - template: TemplateResumen.yml
+
+
+

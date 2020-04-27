@@ -1,0 +1,34 @@
+parameters:
+- name: entorno
+  displayName: "Seleccione un entorno"
+  type: string
+  default: dev
+  values:
+  - dev
+  - pre
+  - q-a
+  - test
+  - pro
+- name: image
+  displayName: "Pool Image"
+  type: string
+  default: 'windows-latest'
+  values:
+  - windows-latest
+  - Default
+  - ubuntu-latest
+  - ubuntu-16.04
+trigger: none
+
+jobs:
+- job: "Seleccion_de_entorno"
+  displayName: build
+  steps:
+    - script: "echo The image parameter is ${{ parameters.entorno }}"
+
+- job: "Push_image"
+  displayName: "push image"
+  pool: 
+    vmImage: ${{ parameters.image }}
+  steps:
+    - script: echo "The image parameter is ${{ parameters.image }}"

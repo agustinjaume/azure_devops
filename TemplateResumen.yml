@@ -1,0 +1,3 @@
+#TemplateResumen.yml
+steps:
+- bash: echo "This Agent.JobStatus is $(Agent.JobStatus)"

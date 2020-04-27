@@ -1,0 +1,18 @@
+trigger: none
+
+jobs:
+
+- job: build
+  displayName: Build and Test
+  pool: 
+    vmImage: 'windows-latest'
+
+  steps:
+
+  - bash: git clone 'https://github.com/agustinjaume/azure_devops.git'
+  - script: echo building $(Build.BuildNumber)
+  - bash: cd azure_devops
+  - bash: cat README.md
+  - bash: pwd
+  - bash: ls -l
+ 

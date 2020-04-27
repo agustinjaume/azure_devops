@@ -1,0 +1,4 @@
+#TemplateSegundoSteps.yml
+steps:
+- bash: echo entorno seleccionado ${{parameters.entorno}}
+- bash: echo "This script could use $(System.AccessToken)"

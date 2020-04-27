@@ -1,0 +1,29 @@
+trigger: none
+
+jobs:
+
+- job: build
+  variables:
+    imageName: 'NginxHolaIdeasExtraordinarias'
+  displayName: Build and Test
+  pool:
+    vmImage: 'Ubuntu-16.04'
+#  docker build -f Dockerfile -t NginxHolaIdeasExtraordinarias .
+  steps:
+    - bash: pwd
+    - bash: ls -l
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        repository: $(imageName)
+        command: build
+        Dockerfile: "**/DockerNginxHolaIdeasExtraordinarias/Dockerfile"
+    - bash: docker images 
+    
+
+    
+
+    
+
+
+    

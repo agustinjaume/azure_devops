@@ -1,0 +1,26 @@
+parameters:
+- name: entornos
+  displayName: Seleccione el entorno 
+  default: dev
+  values:
+  - dev
+  - pre
+  - pro
+
+
+- name: test
+  displayName: Run Tests?
+  type: boolean
+  default: false
+
+trigger: none
+jobs:
+- job: build
+  displayName: Build and Test
+  pool: 
+    vmImage: 'ubuntu-latest'  #${{ parameters.image }}
+  steps:
+  - script: echo building $(Build.BuildNumber)
+  - ${{ if eq(parameters.test, true) }}:
+    - script: echo "Running all the tests"
+    - bash: echo entorno seleccionado ${{parameters.entornos}}
