@@ -1,0 +1,19 @@
+trigger: none
+
+pool: 
+  vmImage: 'ubuntu-latest'
+  
+steps:
+
+  - task: DownloadSecureFile@1
+    displayName: Download secure file kubeconfig_k3s
+    name: kubeconfig_k3s
+    inputs:
+      secureFile: 'kubeconfig_k3s_test2.yml'
+
+  - bash: echo "Antes de comenzar"
+  - bash: mkdir ~/.kube
+  - bash: cat $KUBECONFIG_K3S_SECUREFILEPATH >  ~/.kube/config
+  - bash: env
+  - bash: kubectl cluster-info
+  - bash: kubectl get po --all-namespaces
