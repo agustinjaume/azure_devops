@@ -1,6 +1,6 @@
 # Objetivo
 
-Realizar la configurción necesaria en azure devops para podererealizar automatismos en la nube de Google Cloud.
+Realizar la configuración necesaria en azure devops para realizar automatismos en la nube de Google Cloud.
 
 ### DOCUMENTACIÓN:  
 
