@@ -1,0 +1,32 @@
+trigger: none
+
+pool: 
+  vmImage: 'ubuntu-latest'
+
+variables:
+        GOOGLE_PROJECT_ID: "ivory-honor-272915" 
+        GOOGLE_PROJECT_NAME: "Proyecto-ideas-extraordinarias"
+        GOOGLE_APPLICATION_CREDENTIALS: '$(service_account_total_azure.secureFilePath)'
+        GOOGLE_CLOUD_KEYFILE_JSON: '$(service_account_total_azure.secureFilePath)'
+
+stages:
+  - stage: "GCP_Connection"
+    displayName: "Connection to Google Cloud Project"
+    jobs:
+      - job: "Configure_Service_Account"
+        displayName: "Configure Service Account"
+        steps:
+          - task: DownloadSecureFile@1
+            name: 'service_account_total_azure'
+            displayName: 'Download service account'
+            inputs:
+              secureFile: 'service-account-total-azure.json'
+          - bash: 'echo $GOOGLE_PROJECT_ID'
+          - bash: 'gcloud --version'
+            name:  "version"
+          - bash: 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
+            name: "Active_Service"
+          - bash: 'gcloud config set project $GOOGLE_PROJECT_ID'
+          - bash: 'gcloud config list'
+          - bash: 'gcloud projects list'
+          - bash: 'gcloud compute networks list'
